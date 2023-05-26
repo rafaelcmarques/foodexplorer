@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import { FiUpload, FiSearch } from "react-icons/fi";
-
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { Container, Content, Form, Image } from "./styles";
 import { Header } from "../../../components/Header";
