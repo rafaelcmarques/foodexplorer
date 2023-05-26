@@ -6,7 +6,6 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 1.5rem;
 
   padding: 5.55rem 6.4rem;
 
@@ -14,6 +13,15 @@ export const Container = styled.div`
   border: 1px solid #000204;
   border-radius: 0.8rem;
   position: relative;
+
+  > a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+
+    color: ${({ theme }) => theme.COLORS.LIGHT_100};
+  }
 
   button {
     background: none;

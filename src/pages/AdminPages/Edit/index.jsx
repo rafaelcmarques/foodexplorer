@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FiUpload, FiSearch } from "react-icons/fi";
 
 import { MdKeyboardArrowLeft } from "react-icons/md";
@@ -11,6 +11,12 @@ import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Button";
 
 export function Edit() {
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate("/details/id");
+  };
+
   return (
     <Container>
       <Header>
@@ -80,7 +86,7 @@ export function Edit() {
 
           <div className="btnWrapper">
             <Button title={"Excluir Prato"} />
-            <Button title={"Salvar alterações"} />
+            <Button title={"Salvar alterações"} onClick={handleNavigate} />
           </div>
         </Form>
       </Content>

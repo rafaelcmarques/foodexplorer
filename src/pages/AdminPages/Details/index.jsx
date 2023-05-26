@@ -5,6 +5,7 @@ import { Footer } from "../../../components/Footer";
 import { Tag } from "../../../components/Tag";
 import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Button";
+import { useNavigate } from "react-router-dom";
 
 import { FiSearch } from "react-icons/fi";
 import { MdKeyboardArrowLeft } from "react-icons/md";
@@ -12,6 +13,12 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 import disheImg from "../../../assets/dish.png";
 
 export function Details() {
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate("/edit/:id");
+  };
+
   return (
     <Container>
       <Header>
@@ -42,7 +49,7 @@ export function Details() {
               <Tag title={"pepino"} />
               <Tag title={"tomate"} />
             </div>
-            <Button title={"Editar prato"} />
+            <Button title={"Editar prato"} onClick={handleNavigate} />
           </div>
         </div>
       </Content>
