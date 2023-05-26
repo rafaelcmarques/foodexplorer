@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import { Link, useNavigate } from "react-router-dom";
 import logoAdminDesktop from "../../assets/logoAdminDesktop.png";
 import logoAdminMobile from "../../assets/logoAdminMobile.png";
 
@@ -12,6 +12,12 @@ export function Header({ children, isHide = false }) {
 
   const [showMenu, setShowMenu] = useState(false);
   const [hideNavBar, setHideNaveBar] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate("/new");
+  };
 
   const handleShowMenu = () => {
     setShowMenu(!showMenu);
@@ -36,8 +42,6 @@ export function Header({ children, isHide = false }) {
     return () => window.removeEventListener("scroll", handleHideNavBar);
   }, []);
 
-  console.log(hideNavBar);
-
   return isScreenMobile ? (
     <MobileContainer>
       <div className="nav">
@@ -52,7 +56,9 @@ export function Header({ children, isHide = false }) {
         {showMenu ? (
           <h1>Menu</h1>
         ) : (
-          <img src={logoAdminMobile} alt="FoodExplorer" />
+          <Link to="/">
+            <img src={logoAdminMobile} alt="FoodExplorer" />
+          </Link>
         )}
       </div>
 
@@ -61,23 +67,25 @@ export function Header({ children, isHide = false }) {
 
         <ul>
           <li>
-            <a href="">Novo Prato</a>
+            <Link to="/new">Novo Prato</Link>
           </li>
           <li>
-            <a href="">Sair</a>
+            <Link to="/">Sair</Link>
           </li>
         </ul>
       </div>
     </MobileContainer>
   ) : (
     <DesktopContainer>
-      <img src={logoAdminDesktop} alt="" />
+      <Link to="/">
+        <img src={logoAdminDesktop} alt="" />
+      </Link>
 
       {children}
 
       <div className="wrapper">
         <div className="buttonWrapper">
-          <Button title={"Novo Prato"}></Button>
+          <Button title={"Novo Prato"} onClick={handleNavigate}></Button>
         </div>
         <button>
           <RxExit size={24} />

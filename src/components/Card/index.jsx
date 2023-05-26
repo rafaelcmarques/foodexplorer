@@ -1,10 +1,17 @@
 import { Container } from "./styles";
+import { useNavigate } from "react-router-dom";
 import dishImg from "../../assets/dish.png";
 
 export function Card({ icon: Icon, data, onClick, ...rest }) {
+  const navigate = useNavigate();
+
+  function handleNavigate() {
+    navigate("/edit/:id");
+  }
+
   return (
     <Container>
-      <button onClick={onClick}>{Icon && <Icon size={24} />}</button>
+      <button onClick={handleNavigate}>{Icon && <Icon size={24} />}</button>
 
       <img src={dishImg} alt="" />
       <p className="disheName">{data.name}</p>

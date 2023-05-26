@@ -1,21 +1,29 @@
-import { FiUpload } from "react-icons/fi";
+import { Link } from "react-router-dom";
+import { FiUpload, FiSearch } from "react-icons/fi";
+
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { Container, Content, Form, Image } from "./styles";
 import { Header } from "../../../components/Header";
 import { Footer } from "../../../components/Footer";
 import { NewTag } from "../../../components/NewTag";
+import { Input } from "../../../components/Input";
 
 import { Button } from "../../../components/Button";
 
 export function Edit() {
   return (
     <Container>
-      <Header />
+      <Header>
+        <Input
+          placeholder={"Busque por pratos ou ingredientes"}
+          icon={FiSearch}
+        ></Input>
+      </Header>
       <Content>
         <Form>
-          <a href="">
+          <Link to={-1}>
             <MdKeyboardArrowLeft /> voltar
-          </a>
+          </Link>
           <h1>Editar Prato</h1>
 
           <div>

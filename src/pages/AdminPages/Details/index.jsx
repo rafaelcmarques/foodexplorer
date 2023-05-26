@@ -1,22 +1,30 @@
+import { Link } from "react-router-dom";
 import { Container, Content } from "./styles";
 import { Header } from "../../../components/Header";
 import { Footer } from "../../../components/Footer";
 import { Tag } from "../../../components/Tag";
-import { MdKeyboardArrowLeft } from "react-icons/md";
-
+import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Button";
+
+import { FiSearch } from "react-icons/fi";
+import { MdKeyboardArrowLeft } from "react-icons/md";
 
 import disheImg from "../../../assets/dish.png";
 
 export function Details() {
   return (
     <Container>
-      <Header />
+      <Header>
+        <Input
+          placeholder={"Busque por pratos ou ingredientes"}
+          icon={FiSearch}
+        ></Input>
+      </Header>
       <Content>
         <header>
-          <a href="">
+          <Link to={-1}>
             <MdKeyboardArrowLeft /> voltar
-          </a>
+          </Link>
         </header>
 
         <div className="DisheInfo">

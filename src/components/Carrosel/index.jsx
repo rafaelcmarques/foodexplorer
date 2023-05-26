@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { MdKeyboardArrowRight } from "react-icons/md";
 
 import { Container } from "./styles";
