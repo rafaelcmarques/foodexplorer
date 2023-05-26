@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate, ScrollRestoration } from "react-router-dom";
 import { FiUpload } from "react-icons/fi";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { FiSearch } from "react-icons/fi";
@@ -11,6 +11,11 @@ import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
 
 export function New() {
+  const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    navigate("/");
+  };
   return (
     <Container>
       <Header>
@@ -78,7 +83,7 @@ export function New() {
             ></textarea>
           </label>
 
-          <Button title={"Salvar alterações"} />
+          <Button title={"Salvar alterações"} onClick={handleNavigate} />
         </Form>
       </Content>
       <Footer />
