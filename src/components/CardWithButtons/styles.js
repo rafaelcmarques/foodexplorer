@@ -5,13 +5,20 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
   text-align: center;
   background-color: ${({ theme }) => theme.COLORS.DARK_200};
   border: 1px solid #000204;
   border-radius: 0.8rem;
   position: relative;
   padding: 2.4rem 2.4rem 4.6rem 2.4rem;
+
+  > a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    color: ${({ theme }) => theme.COLORS.LIGHT_100};
+  }
 
   > button {
     background: none;
