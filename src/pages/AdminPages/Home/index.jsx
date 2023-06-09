@@ -1,3 +1,5 @@
+import { api } from "../../../services/api";
+import { useState, useEffect } from "react";
 import { Container, Content } from "./styles";
 import { Header } from "../../../components/Header";
 import { Footer } from "../../../components/Footer";
@@ -6,17 +8,37 @@ import { Input } from "../../../components/Input";
 
 import { FiSearch } from "react-icons/fi";
 
-import macaronImage from "../../../assets/macaron.png";
 import { Carrosel } from "../../../components/Carrosel";
+import macaronImage from "../../../assets/macaron.png";
 
 export function Home() {
-  const data = {
-    name: "Spaguetti Gambe",
-    description: "Massa fresca com camarões e pesto.",
-    price: "32,97",
-  };
+  const [dishes, setDishes] = useState([]);
+  const [search, setSearch] = useState("");
+  const [ingredient, setIngredient] = useState("");
 
-  const carroselTest = [data, data, data, data, data, data, data];
+  function handleSearch(value) {
+    setSearch(value);
+    setIngredient(value);
+  }
+
+  useEffect(() => {
+    async function fetchDishes() {
+      const responseDishe = await api.get(
+        `/admin/dishes?name=${search}&ingredients`
+      );
+      const responseIngredient = await api.get(
+        `/admin/dishes?name&ingredients=${ingredient}`
+      );
+
+      if (responseDishe.data.length < 1) {
+        setDishes(responseIngredient.data);
+      } else {
+        setDishes(responseDishe.data);
+      }
+    }
+
+    fetchDishes();
+  }, [search, ingredient]);
 
   return (
     <Container>
@@ -24,6 +46,7 @@ export function Home() {
         <Input
           placeholder={"Busque por pratos ou ingredientes"}
           icon={FiSearch}
+          onChange={(e) => handleSearch(e.target.value)}
         ></Input>
       </Header>
       <Content>
@@ -37,9 +60,11 @@ export function Home() {
             <p>Sinta o cuidado do preparo com ingredientes selecionados</p>
           </div>
         </div>
-        <Carrosel title={"Refeição"} dishesArray={carroselTest} />
-        <Carrosel title={"Sobremesa"} dishesArray={carroselTest} />
-        <Carrosel title={"Bebidas"} dishesArray={carroselTest} />
+        {dishes.length > 0 ? (
+          <Carrosel title={"Refeição"} dishesArray={dishes} />
+        ) : (
+          <></>
+        )}
       </Content>
       <Footer />
     </Container>

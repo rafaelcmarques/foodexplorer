@@ -29,7 +29,7 @@ export const Container = styled.div`
     z-index: 2;
 
     right: 0rem;
-    height: 49.8rem;
+    top: 25rem;
 
     background: linear-gradient(
       90deg,
@@ -38,7 +38,6 @@ export const Container = styled.div`
     );
     border: none;
     color: white;
-    width: 22.4rem;
   }
 
   .leftBtn {
@@ -46,7 +45,8 @@ export const Container = styled.div`
     z-index: 2;
 
     left: 0rem;
-    height: 49.8rem;
+    top: 25rem;
+
     background: linear-gradient(
       90deg,
       rgba(0, 10, 15, 0.272541) 0%,
@@ -55,7 +55,6 @@ export const Container = styled.div`
     transform: matrix(-1, 0, 0, 1, 0, 0);
     border: none;
     color: white;
-    width: 22.4rem;
   }
 
   @media (max-width: 820px) {

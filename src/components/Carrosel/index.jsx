@@ -31,7 +31,7 @@ export function Carrosel({ dishesArray, title }) {
       </button>
       <div className="carousel" ref={carousel}>
         {dishesArray.map((dish) => (
-          <Card icon={FiEdit2} data={dish}></Card>
+          <Card icon={FiEdit2} key={dish.id} data={dish}></Card>
         ))}
       </div>
     </Container>

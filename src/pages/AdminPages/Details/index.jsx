@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { api } from "../../../services/api";
 import { Container, Content } from "./styles";
 import { Header } from "../../../components/Header";
 import { Footer } from "../../../components/Footer";
@@ -13,11 +15,22 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 import disheImg from "../../../assets/dish.png";
 
 export function Details() {
+  const [data, setData] = useState(null);
   const navigate = useNavigate();
+  const params = useParams();
 
   const handleNavigate = () => {
-    navigate("/edit/:id");
+    navigate(`/edit/${params.id}`);
   };
+
+  useEffect(() => {
+    async function fetchDishe() {
+      const response = await api.get(`/admin/dishes/${params.id}`);
+      setData(response.data);
+    }
+    fetchDishe();
+    console.log(data);
+  }, []);
 
   return (
     <Container>
@@ -34,24 +47,21 @@ export function Details() {
           </Link>
         </header>
 
-        <div className="DisheInfo">
-          <img src={disheImg} alt="Imagem do Prato" />
-          <div>
-            <h1>Salada Ravanello</h1>
-            <p>
-              Rabanetes, folhas verdes e molho agridoce salpicados com gergelim.
-              O pão naan dá um toque especial.
-            </p>
-            <div className="tagPlace">
-              <Tag title={"cebola"} />
-              <Tag title={"alface"} />
-              <Tag title={"pão naan"} />
-              <Tag title={"pepino"} />
-              <Tag title={"tomate"} />
+        {data && (
+          <div className="DisheInfo">
+            <img src={disheImg} alt="Imagem do Prato" />
+            <div>
+              <h1>{data.name}</h1>
+              <p>{data.description}</p>
+              <div className="tagPlace">
+                {data.ingredients.map((ingredient) => {
+                  return <Tag title={ingredient.name} />;
+                })}
+              </div>
+              <Button title={"Editar prato"} onClick={handleNavigate} />
             </div>
-            <Button title={"Editar prato"} onClick={handleNavigate} />
           </div>
-        </div>
+        )}
       </Content>
       <Footer />
     </Container>

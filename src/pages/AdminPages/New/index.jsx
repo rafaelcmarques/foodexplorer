@@ -1,4 +1,7 @@
-import { Link, useNavigate, ScrollRestoration } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { api } from "../../../services/api";
+import { useAlert } from "react-alert";
 import { FiUpload } from "react-icons/fi";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { FiSearch } from "react-icons/fi";
@@ -11,11 +14,60 @@ import { Button } from "../../../components/Button";
 import { Input } from "../../../components/Input";
 
 export function New() {
-  const navigate = useNavigate();
+  const [ingredients, setIngredients] = useState([]);
+  const [newIngredient, setNewIngredient] = useState("");
 
-  const handleNavigate = () => {
-    navigate("/");
+  const [name, setName] = useState("");
+  const [category, setCategory] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+
+  const navigate = useNavigate();
+  const alert = useAlert();
+
+  const handleNewDishe = () => {
+    if ((!name, !category, !price, !description)) {
+      return alert.error("Todos os campos devem ser preenchidos.");
+    }
+
+    if (category === "") {
+      return alert.error("Escolha uma categoria");
+    }
+
+    const formatedPrice = parseFloat(price).toFixed(2);
+
+    try {
+      api.post("/admin/dishes", {
+        name,
+        category,
+        price: formatedPrice,
+        description,
+        ingredients,
+      });
+      alert.success("Prato cadastrado com sucesso!");
+    } catch (error) {
+      if (error.response) {
+        alert.error(error.response.data.message);
+      } else {
+        alert.error("Não foi possível cadastrar o prato");
+      }
+    }
   };
+
+  function handleAddIngredients() {
+    if (newIngredient == "") {
+      return alert.error("Não é possivel adicionar um ingrediente sem nome");
+    }
+    setIngredients((prevState) => [...prevState, newIngredient]);
+    setNewIngredient("");
+  }
+
+  function handleRemoveIngredients(deleted) {
+    setIngredients((prevState) =>
+      prevState.filter((ingredient) => ingredient != deleted)
+    );
+  }
+
   return (
     <Container>
       <Header>
@@ -43,15 +95,25 @@ export function New() {
 
             <label htmlFor="name">
               Nome
-              <input type="text" id="name" placeholder="Ex.: Salada Ceaser " />
+              <input
+                type="text"
+                id="name"
+                placeholder="Ex.: Salada Ceaser "
+                onChange={(e) => setName(e.target.value)}
+              />
             </label>
 
             <label htmlFor="category">
               Categoria
-              <select id="category" name="Categoria">
-                <option value="entrada">Entrada</option>
-                <option value="refeicao">Prato Principal</option>
+              <select
+                id="category"
+                name="Categoria"
+                onChange={(e) => setCategory(e.target.value)}
+              >
+                <option value="entrada">Selecione uma opção</option>
+                <option value="refeicao">Refeição</option>
                 <option value="sobremesa">Sobremesa</option>
+                <option value="bebida">Bebida</option>
               </select>
             </label>
           </div>
@@ -60,15 +122,35 @@ export function New() {
             <div>
               <p>Ingredientes</p>
               <div className="ingredientPlace">
-                <NewTag isNew placeholder={"Adicionar"} />
-                <NewTag value={"Pão Naan"} />
+                <NewTag
+                  isNew
+                  placeholder={"Adicionar"}
+                  value={newIngredient}
+                  onChange={(e) => setNewIngredient(e.target.value)}
+                  onClick={handleAddIngredients}
+                />
+
+                {ingredients.map((ingredient, index) => {
+                  return (
+                    <NewTag
+                      key={index}
+                      value={ingredient}
+                      onClick={() => handleRemoveIngredients(ingredient)}
+                    />
+                  );
+                })}
               </div>
             </div>
 
             <div>
               <label htmlFor="price">
                 Preço
-                <input type="text" placeholder="R$00,00" />
+                <input
+                  type="number"
+                  placeholder="R$00,00"
+                  onChange={(e) => setPrice(e.target.value)}
+                  id="price"
+                />
               </label>
             </div>
           </div>
@@ -80,10 +162,11 @@ export function New() {
               placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"
               cols="30"
               rows="10"
+              onChange={(e) => setDescription(e.target.value)}
             ></textarea>
           </label>
 
-          <Button title={"Salvar alterações"} onClick={handleNavigate} />
+          <Button title={"Salvar alterações"} onClick={handleNewDishe} />
         </Form>
       </Content>
       <Footer />

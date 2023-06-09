@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/auth";
 import logoAdminDesktop from "../../assets/logoAdminDesktop.png";
 import logoAdminMobile from "../../assets/logoAdminMobile.png";
 
@@ -13,10 +14,16 @@ export function Header({ children, isHide = false }) {
   const [showMenu, setShowMenu] = useState(false);
   const [hideNavBar, setHideNaveBar] = useState(false);
 
+  const { singOut } = useAuth();
   const navigate = useNavigate();
 
   const handleNavigate = () => {
     navigate("/new");
+  };
+
+  const handleSignOut = () => {
+    singOut();
+    navigate("/");
   };
 
   const handleShowMenu = () => {
@@ -70,7 +77,7 @@ export function Header({ children, isHide = false }) {
             <Link to="/new">Novo Prato</Link>
           </li>
           <li>
-            <Link to="/">Sair</Link>
+            <button onClick={handleSignOut}>Sair</button>
           </li>
         </ul>
       </div>
@@ -87,7 +94,7 @@ export function Header({ children, isHide = false }) {
         <div className="buttonWrapper">
           <Button title={"Novo Prato"} onClick={handleNavigate}></Button>
         </div>
-        <button>
+        <button onClick={handleSignOut}>
           <RxExit size={24} />
         </button>
       </div>

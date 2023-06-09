@@ -6,6 +6,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
+  max-width: 300px;
 
   padding: 5.55rem 6.4rem;
 
@@ -14,11 +15,12 @@ export const Container = styled.div`
   border-radius: 0.8rem;
   position: relative;
 
-  > a {
+  > div {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
+    cursor: pointer;
 
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
   }

@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/auth";
 
-import logoAdminDesktop from "../../assets/logoAdminDesktop.png";
-import logoAdminMobile from "../../assets/logoAdminMobile.png";
+import logoDesktop from "../../assets/logoDesktop.png";
+import logoMobile from "../../assets/logoMobile.png";
 
 import { DesktopContainer, MobileContainer } from "./styles";
 import { Button } from "../Button";
@@ -14,8 +16,16 @@ export function Header({ children, isHide = false }) {
   const [showMenu, setShowMenu] = useState(false);
   const [hideNavBar, setHideNaveBar] = useState(false);
 
+  const { singOut } = useAuth();
+  const navigate = useNavigate();
+
   const handleShowMenu = () => {
     setShowMenu(!showMenu);
+  };
+
+  const handleSignOut = () => {
+    singOut();
+    navigate("/");
   };
 
   useEffect(() => {
@@ -37,8 +47,6 @@ export function Header({ children, isHide = false }) {
     return () => window.removeEventListener("scroll", handleHideNavBar);
   }, []);
 
-  console.log(hideNavBar);
-
   return isScreenMobile ? (
     <MobileContainer>
       <div className="nav">
@@ -50,11 +58,7 @@ export function Header({ children, isHide = false }) {
           )}
         </button>
 
-        {showMenu ? (
-          <h1>Menu</h1>
-        ) : (
-          <img src={logoAdminMobile} alt="FoodExplorer" />
-        )}
+        {showMenu ? <h1>Menu</h1> : <img src={logoMobile} alt="FoodExplorer" />}
       </div>
 
       <div className={`nav-elements ${showMenu && "active"}`}>
@@ -65,14 +69,14 @@ export function Header({ children, isHide = false }) {
             <a href="">Pedidos(0)</a>
           </li>
           <li>
-            <a href="">Sair</a>
+            <button onClick={handleSignOut}>Sair</button>
           </li>
         </ul>
       </div>
     </MobileContainer>
   ) : (
     <DesktopContainer>
-      <img src={logoAdminDesktop} alt="" />
+      <img src={logoDesktop} alt="" />
 
       {children}
 
@@ -80,7 +84,7 @@ export function Header({ children, isHide = false }) {
         <div className="buttonWrapper">
           <Button icon={TbReceipt} title={`Pedidos(0)`}></Button>
         </div>
-        <button>
+        <button onClick={handleSignOut}>
           <RxExit />
         </button>
       </div>

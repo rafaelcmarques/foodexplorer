@@ -97,8 +97,12 @@ export const MobileContainer = styled.div`
       padding-bottom: 1rem;
       width: 100%;
 
-      a {
+      a,
+      button {
         color: ${({ theme }) => theme.COLORS.LIGHT_100};
+        background-color: transparent;
+        border: none;
+        font-size: 2.4rem;
       }
     }
   }

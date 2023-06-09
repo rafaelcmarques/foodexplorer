@@ -9,6 +9,10 @@ export const Container = styled.div`
   width: 100%;
   > header {
     align-self: center;
+    img {
+      width: 100%;
+      margin-bottom: 7.4rem;
+    }
   }
 
   @media (min-width: 820px) {
@@ -51,7 +55,7 @@ export const Form = styled.form`
 
       font-size: 1.6rem;
       line-height: 2.1rem;
-      color: ${({ theme }) => theme.COLORS.BASE_COLOR};
+      color: ${({ theme }) => theme.COLORS.LIGHT_100};
       text-align: center;
       margin-top: 4.2rem;
     }
@@ -72,7 +76,7 @@ export const Form = styled.form`
       }
 
       > div {
-        div {
+        div:focus-within {
           border: 1px solid ${({ theme }) => theme.COLORS.LIGHT_100};
         }
       }

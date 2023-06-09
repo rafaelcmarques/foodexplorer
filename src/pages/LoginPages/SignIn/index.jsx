@@ -1,12 +1,21 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-
+import { useAuth } from "../../../hooks/auth";
 import { FiMail, FiLock } from "react-icons/fi";
 import { Container, Form } from "./styles";
 import { Input } from "../../../components/Input";
 import { Button } from "../../../components/Button";
-import logoDesktop from "../../../assets/logoDesktop.png";
+import logoDesktop from "../../../assets/logoDesktopLogin.png";
 
 export function SignIn() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { signIn } = useAuth();
+
+  function handleSignIn() {
+    signIn({ email, password });
+  }
   return (
     <Container>
       <header>
@@ -23,6 +32,7 @@ export function SignIn() {
               icon={FiMail}
               placeholder="Exemplo: exemplo@exemplo.com.br"
               id={"email"}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <label htmlFor="password">Senha</label>
             <Input
@@ -30,8 +40,9 @@ export function SignIn() {
               icon={FiLock}
               placeholder="No mínimo 6 caracteres"
               id={"password"}
+              onChange={(e) => setPassword(e.target.value)}
             />
-            <Button title={"Entrar"} />
+            <Button title={"Entrar"} onClick={handleSignIn} />
           </div>
 
           <Link to="/register">Criar conta</Link>
