@@ -44,6 +44,12 @@ export function New() {
         description,
         ingredients,
       });
+      setName("");
+      setCategory("");
+      setDescription("");
+      setCategory("");
+      setPrice("");
+      setIngredients([]);
       alert.success("Prato cadastrado com sucesso!");
     } catch (error) {
       if (error.response) {
@@ -99,6 +105,7 @@ export function New() {
                 type="text"
                 id="name"
                 placeholder="Ex.: Salada Ceaser "
+                value={name}
                 onChange={(e) => setName(e.target.value)}
               />
             </label>
@@ -108,6 +115,7 @@ export function New() {
               <select
                 id="category"
                 name="Categoria"
+                value={category}
                 onChange={(e) => setCategory(e.target.value)}
               >
                 <option value="entrada">Selecione uma opção</option>
@@ -149,6 +157,7 @@ export function New() {
                   type="number"
                   placeholder="R$00,00"
                   onChange={(e) => setPrice(e.target.value)}
+                  value={price}
                   id="price"
                 />
               </label>
@@ -162,6 +171,7 @@ export function New() {
               placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"
               cols="30"
               rows="10"
+              value={description}
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
           </label>

@@ -63,7 +63,9 @@ export function Home() {
         {dishes.length > 0 ? (
           <Carrosel title={"Refeição"} dishesArray={dishes} />
         ) : (
-          <></>
+          <div>
+            <spam>Nenhum prato cadastrado / encontrado.</spam>
+          </div>
         )}
       </Content>
       <Footer />

@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { useAlert } from "react-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import { confirmAlert } from "react-confirm-alert";
 import { api } from "../../../services/api";
 import { FiUpload, FiSearch } from "react-icons/fi";
 import { MdKeyboardArrowLeft } from "react-icons/md";
@@ -15,10 +18,44 @@ export function Edit() {
   const [data, setData] = useState(null);
   const params = useParams();
   const navigate = useNavigate();
+  const alert = useAlert();
 
   const handleNavigate = () => {
     navigate("/details/id");
   };
+
+  async function deleteDishe() {
+    confirmAlert({
+      title: "Confirmação",
+      message: "Tem certeza de que deseja deletar este prato?",
+      buttons: [
+        {
+          label: "Sim",
+          onClick: () => {
+            api
+              .delete(`/admin/dishes/${params.id}`)
+              .then(() => {
+                alert.success("Prato deletado com sucesso!");
+                navigate("/");
+              })
+              .catch((error) => {
+                if (error.response) {
+                  alert.error(error.response.data.message);
+                } else {
+                  alert.error("Não foi possível excluir o prato.");
+                }
+              });
+          },
+        },
+        {
+          label: "Não",
+          onClick: () => {
+            return;
+          },
+        },
+      ],
+    });
+  }
 
   useEffect(() => {
     async function fetchDishe() {
@@ -102,12 +139,12 @@ export function Edit() {
                 placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"
                 cols="30"
                 rows="10"
-                value={data.details}
+                value={data.description}
               ></textarea>
             </label>
 
             <div className="btnWrapper">
-              <Button title={"Excluir Prato"} />
+              <Button title={"Excluir Prato"} onClick={deleteDishe} />
               <Button title={"Salvar alterações"} onClick={handleNavigate} />
             </div>
           </Form>
