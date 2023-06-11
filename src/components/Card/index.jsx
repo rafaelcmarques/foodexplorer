@@ -22,7 +22,7 @@ export function Card({ icon: Icon, data, onClick, ...rest }) {
         <img src={dishImg} alt="" />
         <p className="disheName">{data.name}</p>
         <span className="description">{data.description}</span>
-        <span className="price">{`R$${data.price.toFixed(2)}`}</span>
+        <span className="price">{`R$${data.price}`}</span>
       </div>
     </Container>
   );

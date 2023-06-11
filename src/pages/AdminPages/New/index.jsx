@@ -34,7 +34,12 @@ export function New() {
       return alert.error("Escolha uma categoria");
     }
 
-    const formatedPrice = parseFloat(price).toFixed(2);
+    const formatedPrice = parseInt(price);
+    console.log(typeof formatedPrice);
+
+    if (isNaN(formatedPrice)) {
+      return alert.error("No campo preço, digite apenas números.");
+    }
 
     try {
       api.post("/admin/dishes", {

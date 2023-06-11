@@ -10,13 +10,13 @@ export function Carrosel({ dishesArray, title }) {
   const carousel = useRef(null);
 
   const handleLeftClick = (e) => {
-    e.preventDefault;
+    e.preventDefault();
     console.log(carousel.current.offsetWidth);
     carousel.current.scrollLeft -= carousel.current.offsetWidth;
   };
 
   const handleRightClick = (e) => {
-    e.preventDefault;
+    e.preventDefault();
     carousel.current.scrollLeft += carousel.current.offsetWidth;
   };
 

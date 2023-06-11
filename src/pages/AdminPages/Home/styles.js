@@ -25,13 +25,6 @@ export const Content = styled.div`
 
   justify-content: center;
 
-  > div {
-    spam {
-      display: block;
-      margin-bottom: 10rem;
-    }
-  }
-
   > .rectangle {
     display: grid;
     grid-template-columns: 1fr 1fr;

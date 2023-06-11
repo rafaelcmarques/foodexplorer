@@ -16,6 +16,10 @@ export function Home() {
   const [search, setSearch] = useState("");
   const [ingredient, setIngredient] = useState("");
 
+  const [meals, setMeals] = useState([]);
+  const [drinks, setDrinks] = useState([]);
+  const [dessert, setDesserts] = useState([]);
+
   function handleSearch(value) {
     setSearch(value);
     setIngredient(value);
@@ -23,22 +27,29 @@ export function Home() {
 
   useEffect(() => {
     async function fetchDishes() {
-      const responseDishe = await api.get(
-        `/admin/dishes?name=${search}&ingredients`
-      );
-      const responseIngredient = await api.get(
-        `/admin/dishes?name&ingredients=${ingredient}`
-      );
-
-      if (responseDishe.data.length < 1) {
-        setDishes(responseIngredient.data);
-      } else {
-        setDishes(responseDishe.data);
+      let response = await api.get(`/admin/dishes?name=${search}&ingredients`);
+      if (response.data.length === 0) {
+        response = await api.get(
+          `/admin/dishes?name&ingredients=${ingredient}`
+        );
       }
+      setDishes(response.data);
     }
 
     fetchDishes();
+    filterDishes();
   }, [search, ingredient]);
+
+  function filterDishes() {
+    setMeals(dishes.filter((dishe) => dishe.category === "refeicao"));
+    setDrinks(dishes.filter((dishe) => dishe.category === "bebida"));
+    setDesserts(dishes.filter((dishe) => dishe.category === "sobremesa"));
+  }
+
+  useEffect(() => {
+    filterDishes();
+    console.log(dishes);
+  }, [dishes]);
 
   return (
     <Container>
@@ -60,12 +71,22 @@ export function Home() {
             <p>Sinta o cuidado do preparo com ingredientes selecionados</p>
           </div>
         </div>
-        {dishes.length > 0 ? (
-          <Carrosel title={"Refeição"} dishesArray={dishes} />
+        {meals.length > 0 ? (
+          <Carrosel title={"Refeição"} dishesArray={meals} />
         ) : (
-          <div>
-            <spam>Nenhum prato cadastrado / encontrado.</spam>
-          </div>
+          <></>
+        )}
+
+        {drinks.length > 0 ? (
+          <Carrosel title={"Bebida"} dishesArray={drinks} />
+        ) : (
+          <></>
+        )}
+
+        {dessert.length > 0 ? (
+          <Carrosel title={"Sobremesa"} dishesArray={dessert} />
+        ) : (
+          <></>
         )}
       </Content>
       <Footer />
