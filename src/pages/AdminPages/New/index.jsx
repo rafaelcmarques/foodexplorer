@@ -22,7 +22,6 @@ export function New() {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
 
-  const navigate = useNavigate();
   const alert = useAlert();
 
   const handleNewDishe = () => {
@@ -35,7 +34,6 @@ export function New() {
     }
 
     const formatedPrice = parseInt(price);
-    console.log(typeof formatedPrice);
 
     if (isNaN(formatedPrice)) {
       return alert.error("No campo preço, digite apenas números.");

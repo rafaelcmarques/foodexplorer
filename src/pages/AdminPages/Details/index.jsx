@@ -29,7 +29,6 @@ export function Details() {
       setData(response.data);
     }
     fetchDishe();
-    console.log(data);
   }, []);
 
   return (

@@ -16,13 +16,16 @@ import { Button } from "../../../components/Button";
 
 export function Edit() {
   const [data, setData] = useState(null);
-  const params = useParams();
-  const navigate = useNavigate();
-  const alert = useAlert();
+  const [name, setName] = useState("");
+  const [category, setCategory] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [ingredients, setIngredients] = useState([]);
+  const [newIngredient, setNewIngredient] = useState("");
 
-  const handleNavigate = () => {
-    navigate("/details/id");
-  };
+  const params = useParams();
+  const alert = useAlert();
+  const navigate = useNavigate();
 
   async function deleteDishe() {
     confirmAlert({
@@ -54,16 +57,72 @@ export function Edit() {
           },
         },
       ],
+      overlayClassName: "my-custom-overlay",
     });
+  }
+
+  const handleEditDishe = () => {
+    if ((!name, !category, !price, !description)) {
+      return alert.error("Todos os campos devem ser preenchidos.");
+    }
+
+    if (category === "") {
+      return alert.error("Escolha uma categoria");
+    }
+
+    const formatedPrice = parseInt(price);
+    if (isNaN(formatedPrice)) {
+      return alert.error("No campo preço, digite apenas números.");
+    }
+
+    try {
+      api.patch(`/admin/dishes/${params.id}`, {
+        name,
+        category,
+        price: formatedPrice,
+        description,
+        ingredients,
+      });
+      alert.success("Prato editado com sucesso!");
+    } catch (error) {
+      if (error.response) {
+        alert.error(error.response.data.message);
+      } else {
+        alert.error("Não foi possível editar o prato");
+      }
+    }
+  };
+
+  function handleAddIngredients() {
+    if (newIngredient == "") {
+      return alert.error("Não é possivel adicionar um ingrediente sem nome");
+    }
+    console;
+    setIngredients((prevState) => [...prevState, { name: newIngredient }]);
+    setNewIngredient("");
+  }
+
+  function handleRemoveIngredients(deleted) {
+    setIngredients((prevState) =>
+      prevState.filter((ingredient) => ingredient.name !== deleted.name)
+    );
   }
 
   useEffect(() => {
     async function fetchDishe() {
       const response = await api.get(`/admin/dishes/${params.id}`);
       setData(response.data);
+      setName(response.data.name);
+      setCategory(response.data.category);
+      setPrice(response.data.price);
+      setDescription(response.data.description);
+      setIngredients(
+        response.data.ingredients.map((ingredient) => {
+          return { name: ingredient.name };
+        })
+      );
     }
     fetchDishe();
-    console.log(data);
   }, []);
 
   return (
@@ -98,13 +157,19 @@ export function Edit() {
                   type="text"
                   id="name"
                   placeholder="Ex.: Salada Ceaser "
-                  value={data.name}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </label>
 
               <label htmlFor="category">
                 Categoria
-                <select id="category" name="Categoria" value={data.category}>
+                <select
+                  id="category"
+                  name="Categoria"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                >
                   <option value="entrada">Escolha uma opção</option>
                   <option value="entrada">Entrada</option>
                   <option value="refeicao">Prato Principal</option>
@@ -117,9 +182,22 @@ export function Edit() {
               <div>
                 <p>Ingredientes</p>
                 <div className="ingredientPlace">
-                  <NewTag isNew={true} placeholder={"adicionar"} />
-                  {data.ingredients.map((ingredient) => {
-                    return <NewTag value={ingredient.name} />;
+                  <NewTag
+                    isNew
+                    placeholder={"Adicionar"}
+                    value={newIngredient}
+                    onChange={(e) => setNewIngredient(e.target.value)}
+                    onClick={handleAddIngredients}
+                  />
+
+                  {ingredients.map((ingredient, index) => {
+                    return (
+                      <NewTag
+                        key={index}
+                        value={ingredient.name}
+                        onClick={() => handleRemoveIngredients(ingredient)}
+                      />
+                    );
                   })}
                 </div>
               </div>
@@ -127,7 +205,12 @@ export function Edit() {
               <div>
                 <label htmlFor="price">
                   Preço
-                  <input type="text" placeholder="R$00,00" value={data.price} />
+                  <input
+                    type="text"
+                    placeholder="R$00,00"
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
+                  />
                 </label>
               </div>
             </div>
@@ -139,13 +222,14 @@ export function Edit() {
                 placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"
                 cols="30"
                 rows="10"
-                value={data.description}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
               ></textarea>
             </label>
 
             <div className="btnWrapper">
               <Button title={"Excluir Prato"} onClick={deleteDishe} />
-              <Button title={"Salvar alterações"} onClick={handleNavigate} />
+              <Button title={"Salvar alterações"} onClick={handleEditDishe} />
             </div>
           </Form>
         )}

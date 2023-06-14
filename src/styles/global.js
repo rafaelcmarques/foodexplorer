@@ -34,4 +34,16 @@ button, a {
 button:hover, a:hover {
  filter: brightness(0.9);
 }
+
+// react confirm
+
+.react-confirm-alert-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+   
+}
+
+.react-confirm-alert-body {
+  background-color: ${({ theme }) => theme.COLORS.LIGHT_400};
+  
+}
 `;

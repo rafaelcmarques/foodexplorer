@@ -48,7 +48,6 @@ export function Home() {
 
   useEffect(() => {
     filterDishes();
-    console.log(dishes);
   }, [dishes]);
 
   return (
