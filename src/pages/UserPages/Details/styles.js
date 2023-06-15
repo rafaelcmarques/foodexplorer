@@ -36,6 +36,7 @@ export const Content = styled.div`
       margin-bottom: 1.6rem;
       width: 26rem;
       height: 26rem;
+      border-radius: 50%;
     }
 
     h1,

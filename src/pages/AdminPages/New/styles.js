@@ -161,6 +161,9 @@ export const Image = styled.div`
     background-color: ${({ theme }) => theme.COLORS.DARK_800};
   }
 
+  > .imageLabel.file-selected {
+    background-color: ${({ theme }) => theme.COLORS.CAKE_100};
+  }
   input {
     display: none;
   }

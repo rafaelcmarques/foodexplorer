@@ -12,10 +12,10 @@ import { useNavigate } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 
-import disheImg from "../../../assets/dish.png";
-
 export function Details() {
   const [data, setData] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
+
   const navigate = useNavigate();
   const params = useParams();
 
@@ -31,6 +31,11 @@ export function Details() {
     fetchDishe();
   }, []);
 
+  useEffect(() => {
+    if (data) {
+      setImageUrl(`${api.defaults.baseURL}/files/${data.image}`);
+    }
+  }, [data]);
   return (
     <Container>
       <Header>
@@ -48,7 +53,7 @@ export function Details() {
 
         {data && (
           <div className="DisheInfo">
-            <img src={disheImg} alt="Imagem do Prato" />
+            <img src={imageUrl} alt="Imagem do Prato" />
             <div>
               <h1>{data.name}</h1>
               <p>{data.description}</p>

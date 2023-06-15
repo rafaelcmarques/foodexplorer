@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAlert } from "react-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
@@ -22,7 +22,9 @@ export function Edit() {
   const [description, setDescription] = useState("");
   const [ingredients, setIngredients] = useState([]);
   const [newIngredient, setNewIngredient] = useState("");
+  const [imageFile, setImageFile] = useState(null);
 
+  const imageLabelRef = useRef(null);
   const params = useParams();
   const alert = useAlert();
   const navigate = useNavigate();
@@ -61,13 +63,19 @@ export function Edit() {
     });
   }
 
-  const handleEditDishe = () => {
+  const handleEditDishe = async () => {
     if ((!name, !category, !price, !description)) {
       return alert.error("Todos os campos devem ser preenchidos.");
     }
 
     if (category === "") {
       return alert.error("Escolha uma categoria");
+    }
+
+    if (newIngredient) {
+      return alert.error(
+        " Você deixou um ingrediente no campo para adicionar. Clique para adiciona-la"
+      );
     }
 
     const formatedPrice = parseInt(price);
@@ -83,6 +91,12 @@ export function Edit() {
         description,
         ingredients,
       });
+
+      const formData = new FormData();
+      formData.append("image", imageFile);
+
+      await api.patch(`/admin/dishes/${params.id}/image`, formData);
+
       alert.success("Prato editado com sucesso!");
     } catch (error) {
       if (error.response) {
@@ -109,6 +123,12 @@ export function Edit() {
   }
 
   useEffect(() => {
+    if (imageFile) {
+      imageLabelRef.current.classList.add("file-selected");
+    }
+  }, [imageFile]);
+
+  useEffect(() => {
     async function fetchDishe() {
       const response = await api.get(`/admin/dishes/${params.id}`);
       setData(response.data);
@@ -121,6 +141,7 @@ export function Edit() {
           return { name: ingredient.name };
         })
       );
+      setImageFile(response.data.image);
     }
     fetchDishe();
   }, []);
@@ -144,10 +165,18 @@ export function Edit() {
             <div>
               <Image>
                 <p>Imagem</p>
-                <label className="imageLabel" htmlFor="image">
+                <label
+                  className="imageLabel"
+                  htmlFor="image"
+                  ref={imageLabelRef}
+                >
                   <FiUpload size={20} />
                   <span>Selecione a imagem</span>
-                  <input id="image" type="file" />
+                  <input
+                    id="image"
+                    type="file"
+                    onChange={(e) => setImageFile(e.target.files[0])}
+                  />
                 </label>
               </Image>
 

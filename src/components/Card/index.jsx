@@ -1,10 +1,11 @@
 import { Container } from "./styles";
 import { useNavigate, Link } from "react-router-dom";
 import dishImg from "../../assets/dish.png";
+import { api } from "../../services/api";
 
 export function Card({ icon: Icon, data, onClick, ...rest }) {
   const navigate = useNavigate();
-
+  const image = `${api.defaults.baseURL}/files/${data.image}`;
   function handleNavigateToDetail() {
     navigate(`/details/${data.id}`);
   }
@@ -19,7 +20,7 @@ export function Card({ icon: Icon, data, onClick, ...rest }) {
         {Icon && <Icon size={24} />}
       </button>
       <div onClick={handleNavigateToDetail}>
-        <img src={dishImg} alt="" />
+        <img src={image} alt="" />
         <p className="disheName">{data.name}</p>
         <span className="description">{data.description}</span>
         <span className="price">{`R$${data.price}`}</span>

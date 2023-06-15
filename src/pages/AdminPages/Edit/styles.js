@@ -90,6 +90,12 @@ export const Form = styled.form`
     font-weight: 400;
     font-size: 1.6rem;
     line-height: 100%;
+
+    cursor: pointer;
+  }
+
+  > .imageLabel {
+    background-color: ${({ theme }) => theme.COLORS.LIGHT_300};
   }
 
   .ingredientPlace {
@@ -173,6 +179,10 @@ export const Image = styled.div`
     margin: 1.6rem 0 2.4rem 0;
 
     background-color: ${({ theme }) => theme.COLORS.DARK_800};
+  }
+
+  > .imageLabel.file-selected {
+    background-color: ${({ theme }) => theme.COLORS.CAKE_100};
   }
 
   input {
