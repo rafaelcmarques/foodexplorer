@@ -1,4 +1,7 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { api } from "../../../services/api";
+
 import { Container, Content } from "./styles";
 import { Header } from "../../../components/Header";
 import { Footer } from "../../../components/Footer";
@@ -13,6 +16,24 @@ import { FiSearch } from "react-icons/fi";
 import disheImg from "../../../assets/dish.png";
 
 export function Details() {
+  const [dish, setDish] = useState({});
+  const [imageUrl, setImageUrl] = useState("");
+  const params = useParams();
+
+  useEffect(() => {
+    async function fetchDishe() {
+      const response = await api.get(`/dishes/${params.id}`);
+      setDish(response.data);
+    }
+    fetchDishe();
+  }, []);
+
+  useEffect(() => {
+    if (dish) {
+      setImageUrl(`${api.defaults.baseURL}/files/${dish.image}`);
+    }
+  }, [dish]);
+
   return (
     <Container>
       <Header>
@@ -28,32 +49,28 @@ export function Details() {
             <MdKeyboardArrowLeft /> voltar
           </Link>
         </header>
-
-        <div className="DisheInfo">
-          <img src={disheImg} alt="Imagem do Prato" />
-          <div>
-            <h1>Salada Ravanello</h1>
-            <p>
-              Rabanetes, folhas verdes e molho agridoce salpicados com gergelim.
-              O pão naan dá um toque especial.
-            </p>
-            <div className="tagPlace">
-              <Tag title={"cebola"} />
-              <Tag title={"alface"} />
-              <Tag title={"pão naan"} />
-              <Tag title={"pepino"} />
-              <Tag title={"tomate"} />
-            </div>
-            <div className="btnWrapper">
-              <div className="btnQuantity">
-                <button>-</button>
-                <input type="number" id="quantity" value={"01"} />
-                <button>+</button>
+        {dish && dish.ingredients && (
+          <div className="DisheInfo">
+            <img src={imageUrl} alt="Imagem do Prato" />
+            <div>
+              <h1>{dish.name}</h1>
+              <p>{dish.description}</p>
+              <div className="tagPlace">
+                {dish.ingredients.map((ingredient) => {
+                  return <Tag title={ingredient.name}></Tag>;
+                })}
               </div>
-              <Button icon={TbReceipt} title={"pedir ∙ R$ 25,00"}></Button>
+              <div className="btnWrapper">
+                <div className="btnQuantity">
+                  <button>-</button>
+                  <input type="number" id="quantity" value={"01"} />
+                  <button>+</button>
+                </div>
+                <Button icon={TbReceipt} title={"pedir ∙ R$ 25,00"}></Button>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </Content>
       <Footer />
     </Container>
