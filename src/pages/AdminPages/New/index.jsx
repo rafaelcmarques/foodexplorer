@@ -46,8 +46,6 @@ export function New() {
       );
     }
 
-    const formatedPrice = parseInt(price);
-
     if (isNaN(formatedPrice)) {
       return alert.error("No campo preço, digite apenas números.");
     }

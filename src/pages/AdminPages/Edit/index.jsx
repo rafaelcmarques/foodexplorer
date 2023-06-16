@@ -78,7 +78,7 @@ export function Edit() {
       );
     }
 
-    const formatedPrice = parseInt(price);
+    const formatedPrice = parseFloat(price).toFixed(2);
     if (isNaN(formatedPrice)) {
       return alert.error("No campo preço, digite apenas números.");
     }
@@ -92,10 +92,12 @@ export function Edit() {
         ingredients,
       });
 
-      const formData = new FormData();
-      formData.append("image", imageFile);
+      if (imageFile) {
+        const formData = new FormData();
+        formData.append("image", imageFile);
 
-      await api.patch(`/admin/dishes/${params.id}/image`, formData);
+        await api.patch(`/admin/dishes/${params.id}/image`, formData);
+      }
 
       alert.success("Prato editado com sucesso!");
     } catch (error) {
@@ -141,7 +143,6 @@ export function Edit() {
           return { name: ingredient.name };
         })
       );
-      setImageFile(response.data.image);
     }
     fetchDishe();
   }, []);
@@ -235,7 +236,7 @@ export function Edit() {
                 <label htmlFor="price">
                   Preço
                   <input
-                    type="text"
+                    type="number"
                     placeholder="R$00,00"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}

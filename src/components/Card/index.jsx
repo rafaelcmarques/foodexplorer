@@ -1,6 +1,5 @@
 import { Container } from "./styles";
 import { useNavigate, Link } from "react-router-dom";
-import dishImg from "../../assets/dish.png";
 import { api } from "../../services/api";
 
 export function Card({ icon: Icon, data, onClick, ...rest }) {
@@ -23,7 +22,7 @@ export function Card({ icon: Icon, data, onClick, ...rest }) {
         <img src={image} alt="" />
         <p className="disheName">{data.name}</p>
         <span className="description">{data.description}</span>
-        <span className="price">{`R$${data.price}`}</span>
+        <span className="price">{`R$${data.price.toFixed(2)}`}</span>
       </div>
     </Container>
   );

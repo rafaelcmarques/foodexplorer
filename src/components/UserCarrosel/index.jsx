@@ -31,7 +31,7 @@ export function UserCarrosel({ dishesArray, title }) {
       </button>
       <div className="carousel" ref={carousel}>
         {dishesArray.map((dish) => (
-          <CardWithButtons icon={AiOutlineHeart} data={dish} />
+          <CardWithButtons key={dish.id} icon={AiOutlineHeart} data={dish} />
         ))}
       </div>
     </Container>

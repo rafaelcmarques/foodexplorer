@@ -6,9 +6,10 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
-  max-width: 300px;
 
-  padding: 5.55rem 6.4rem;
+  width: 300px;
+
+  padding: 5.55rem 2.4rem;
 
   background-color: ${({ theme }) => theme.COLORS.DARK_200};
   border: 1px solid #000204;
@@ -38,6 +39,7 @@ export const Container = styled.div`
 
   img {
     width: 17.6rem;
+    height: 17.6rem;
     border-radius: 50%;
   }
 
@@ -62,19 +64,31 @@ export const Container = styled.div`
   }
 
   @media (max-width: 820px) {
-    padding: 8rem 6rem;
+    padding: 8rem 2.4rem;
+    width: 280px;
 
+    .disheName {
+      font-weight: 500;
+      font-size: 2rem;
+      line-height: 2.4rem;
+    }
     .description {
       display: none;
+    }
+    .price {
+      font-weight: 400;
+      font-size: 2rem;
+      line-height: 1.6rem;
     }
 
     img {
       width: 14.14rem;
+      height: 14.14rem;
     }
   }
 
   @media (max-width: 480px) {
-    padding: 7rem 6rem;
+    padding: 8rem 2.4rem;
     .disheName {
       font-weight: 500;
       font-size: 1.4rem;
@@ -92,6 +106,7 @@ export const Container = styled.div`
 
     img {
       width: 8.8rem;
+      height: 8.8rem;
     }
   }
 `;
