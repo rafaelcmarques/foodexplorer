@@ -18,7 +18,7 @@
 - Para acessar a conta de usuário, basta clicar em Criar Conta > Preencher as informações > Clicar em cadastrar
 - Após realizar os passos acima, utilize da conta cadastrada para entrar como usuário.
 
-## ▶️ Instalação e execução
+## ▶️ Instalação e execução localmente
 
 Instale com npm
 
