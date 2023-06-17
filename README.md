@@ -20,17 +20,13 @@
 
 ## ▶️ Instalação e execução localmente
 
-Instale com npm
+Instale os pacotes com npm
 
 ```bash
-  npm install
+  npm install --legacy-peer-deps
 ```
 
-Em seguida utilize o comando abaixo para gerar o banco de dados
-
-```bash
-  npm run migrate
-```
+- É importante usar as flag --legacy-peer-deps, para evitar o conflito entre versões de pacotes instalados.
 
 E então execute o comando para executar a api em sua maquina local
 
