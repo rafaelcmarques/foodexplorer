@@ -45,7 +45,7 @@ export function New() {
         " Você deixou um ingrediente no campo para adicionar. Clique para adiciona-la"
       );
     }
-
+    const formatedPrice = parseFloat(price).toFixed(2);
     if (isNaN(formatedPrice)) {
       return alert.error("No campo preço, digite apenas números.");
     }

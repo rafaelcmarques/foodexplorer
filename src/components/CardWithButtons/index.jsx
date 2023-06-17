@@ -13,7 +13,7 @@ export function CardWithButtons({ icon: Icon, data, onClick, ...rest }) {
         <img src={image} alt="Imagem do prato" />
         <p className="disheName">{data.name}</p>
         <span className="description">{data.description}</span>
-        <span className="price">{`R$${data.price}`}</span>
+        <span className="price">{`R$${data.price.toFixed(2)}`}</span>
       </Link>
 
       <div className="btnWrapper">
