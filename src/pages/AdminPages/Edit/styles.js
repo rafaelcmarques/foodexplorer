@@ -120,6 +120,10 @@ export const Form = styled.form`
         background-color: ${({ theme }) => theme.COLORS.DARK_800};
       }
     }
+
+    > button:first-child:hover {
+      animation: myAnim3 2s ease 0s 1 normal forwards;
+    }
   }
 
   @media (min-width: 820px) {
@@ -187,5 +191,37 @@ export const Image = styled.div`
 
   input {
     display: none;
+  }
+
+  @keyframes myAnim3 {
+    0%,
+    100% {
+      transform: rotate(0deg);
+      transform-origin: 0 50%;
+    }
+
+    10% {
+      transform: rotate(2deg);
+    }
+
+    20%,
+    40%,
+    60% {
+      transform: rotate(-4deg);
+    }
+
+    30%,
+    50%,
+    70% {
+      transform: rotate(4deg);
+    }
+
+    80% {
+      transform: rotate(-2deg);
+    }
+
+    90% {
+      transform: rotate(2deg);
+    }
   }
 `;

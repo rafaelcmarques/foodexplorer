@@ -39,17 +39,17 @@ E então execute o comando para executar a api em sua maquina local
 Esse projeto foi desenvolvido com as seguintes tecnologias:
 
 - Axios
-  - React
-  - React alert
-  - React Confirm Alert
-  - React dom
-  - React icons
-  - React Router Dom
-  - Styled Components
+- React
+- React alert
+- React Confirm Alert
+- React dom
+- React icons
+- React Router Dom
+- Styled Components
 
-## ⚙️ Repositório de código Bacl-end
+## ⚙️ Repositório de código Back-end
 
-**Para acessar o repositório de código Front-end, clique no link abaixo.**
+**Para acessar o repositório de código Back-end, clique no link abaixo.**
 
 - [FoodExplorer - Back-end](https://github.com/rafaelcmarques/foodexplorer-api)
 

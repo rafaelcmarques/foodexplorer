@@ -142,4 +142,15 @@ export const Container = styled.div`
       height: 8.8rem;
     }
   }
+  animation: myAnim5 1s ease 0s 1 normal forwards;
+
+  @keyframes myAnim5 {
+    0% {
+      transform: scale(0.5);
+    }
+
+    100% {
+      transform: scale(1);
+    }
+  }
 `;

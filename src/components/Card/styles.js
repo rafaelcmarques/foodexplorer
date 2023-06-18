@@ -26,6 +26,8 @@ export const Container = styled.div`
     color: ${({ theme }) => theme.COLORS.LIGHT_100};
   }
 
+  animation: myAnim 1s ease 0s 1 normal forwards;
+
   button {
     background: none;
     border: none;
@@ -107,6 +109,18 @@ export const Container = styled.div`
     img {
       width: 8.8rem;
       height: 8.8rem;
+    }
+  }
+
+  animation: myAnim2 1s ease 0s 1 normal forwards;
+
+  @keyframes myAnim2 {
+    0% {
+      transform: scale(0.5);
+    }
+
+    100% {
+      transform: scale(1);
     }
   }
 `;
