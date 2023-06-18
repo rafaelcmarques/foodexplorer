@@ -106,6 +106,26 @@ export const MobileContainer = styled.div`
       }
     }
   }
+
+  > div > div {
+    position: relative;
+    span {
+      position: absolute;
+      top: -5px;
+      right: -3px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 20px;
+      height: 20px;
+      font-size: 1.4rem;
+      border-radius: 50%;
+
+      background-color: ${({ theme }) => theme.COLORS.TOMATO_100};
+    }
+  }
 `;
 
 export const DesktopContainer = styled.div`

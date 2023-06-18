@@ -59,6 +59,15 @@ export function Header({ children, isHide = false }) {
         </button>
 
         {showMenu ? <h1>Menu</h1> : <img src={logoMobile} alt="FoodExplorer" />}
+
+        {!showMenu ? (
+          <div>
+            <TbReceipt size={30} />
+            <span>0</span>
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
 
       <div className={`nav-elements ${showMenu && "active"}`}>
