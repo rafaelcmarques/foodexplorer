@@ -5,9 +5,14 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1.2rem;
   text-align: center;
-
-  width: 300px;
+  background-color: ${({ theme }) => theme.COLORS.DARK_200};
+  border: 1px solid #000204;
+  border-radius: 0.8rem;
+  position: relative;
+  padding: 2.4rem 2.4rem 4.6rem 2.4rem;
+  width: 304px;
 
   padding: 5.55rem 2.4rem;
 
@@ -49,6 +54,7 @@ export const Container = styled.div`
     font-weight: 700;
     font-size: 2.4rem;
     line-height: 3.4rem;
+    width: 300px;
   }
 
   .description {

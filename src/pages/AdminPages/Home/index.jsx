@@ -71,19 +71,19 @@ export function Home() {
           </div>
         </div>
         {meals.length > 0 ? (
-          <Carrosel title={"Refeição"} dishesArray={meals} />
-        ) : (
-          <></>
-        )}
-
-        {drinks.length > 0 ? (
-          <Carrosel title={"Bebida"} dishesArray={drinks} />
+          <Carrosel title={"Refeições"} dishesArray={meals} />
         ) : (
           <></>
         )}
 
         {dessert.length > 0 ? (
-          <Carrosel title={"Sobremesa"} dishesArray={dessert} />
+          <Carrosel title={"Sobremesas"} dishesArray={dessert} />
+        ) : (
+          <></>
+        )}
+
+        {drinks.length > 0 ? (
+          <Carrosel title={"Bebidas"} dishesArray={drinks} />
         ) : (
           <></>
         )}

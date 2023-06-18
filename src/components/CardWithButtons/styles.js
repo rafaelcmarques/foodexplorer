@@ -12,7 +12,7 @@ export const Container = styled.div`
   border-radius: 0.8rem;
   position: relative;
   padding: 2.4rem 2.4rem 4.6rem 2.4rem;
-  width: 300px;
+  width: 304px;
 
   > a {
     display: flex;
@@ -40,10 +40,11 @@ export const Container = styled.div`
   }
 
   .disheName {
+    align-items: center;
     font-weight: 700;
     font-size: 2.4rem;
     line-height: 3.4rem;
-    width: max-content;
+    width: 300px;
   }
 
   .description {
