@@ -66,7 +66,10 @@ export function Details() {
                   <input type="number" id="quantity" value={"01"} />
                   <button>+</button>
                 </div>
-                <Button icon={TbReceipt} title={"pedir ∙ R$ 25,00"}></Button>
+                <Button
+                  icon={TbReceipt}
+                  title={`pedir - R$${dish.price.toFixed(2)}`}
+                ></Button>
               </div>
             </div>
           </div>

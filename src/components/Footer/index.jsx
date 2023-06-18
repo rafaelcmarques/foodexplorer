@@ -1,9 +1,9 @@
 import { Container } from "./styles";
-
+import logoFooter from "../../assets/logoFooter.png";
 export function Footer() {
   return (
     <Container>
-      <h1>food explorer</h1>
+      <img src={logoFooter} alt="FoodExplorer" />
       <p>© Todos os direitos reservados </p>
     </Container>
   );

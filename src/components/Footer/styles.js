@@ -22,4 +22,11 @@ export const Container = styled.footer`
     font-size: 1.4rem;
     line-height: 2.2rem;
   }
+
+  @media (max-width: 480px) {
+    img {
+      width: 142.47px;
+      height: 19px;
+    }
+  }
 `;

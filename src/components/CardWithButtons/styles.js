@@ -52,6 +52,7 @@ export const Container = styled.div`
     font-weight: 400;
     font-size: 1.4rem;
     line-height: 2.2rem;
+    max-width: 250px;
   }
 
   .price {
