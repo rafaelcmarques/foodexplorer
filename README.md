@@ -1,6 +1,7 @@
 <h1 align="center"> FoodExplorer - Front-End  </h1>
 
 - [🔧 Deploy](#-deploy)
+- [🖥️ Telas Preview](#%EF%B8%8F-telas-preview) 
 - [▶️ Instalação e Execução](#%EF%B8%8F-instalação-e-execução-localmente)
 - [🚀 Tecnologias](#-tecnologias)
 - [⚙️ Repositório de código Front-end](#%EF%B8%8F-repositório-de-código-back-end)
