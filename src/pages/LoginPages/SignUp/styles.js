@@ -81,4 +81,14 @@ export const Form = styled.form`
     }
     width: 47.6rem;
   }
+  animation: myAnim 1.5s ease 0s 1 normal forwards;
+  @keyframes myAnim {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
 `;
