@@ -1,4 +1,4 @@
-import { api } from "../../../services/api";
+import { api, CancelToken } from "../../../services/api";
 import { useState, useEffect } from "react";
 import { Container, Content } from "./styles";
 import { Header } from "../../../components/Header";
@@ -26,20 +26,28 @@ export function Home() {
   }
 
   useEffect(() => {
+    let cancelToken = CancelToken.source();
+
     async function fetchDishes() {
-      let response = await api.get(`/admin/dishes?name=${search}&ingredients`);
+      let response = await api.get(`/dishes?name=${search}&ingredients`, {
+        cancelToken: cancelToken.token,
+      });
+
       if (response.data.length === 0) {
-        response = await api.get(
-          `/admin/dishes?name&ingredients=${ingredient}`
-        );
+        response = await api.get(`/dishes?name&ingredients=${search}`, {
+          cancelToken: cancelToken.token,
+        });
       }
+
       setDishes(response.data);
     }
 
     fetchDishes();
-    filterDishes();
-  }, [search, ingredient]);
 
+    return () => {
+      cancelToken.cancel("Request canceled");
+    };
+  }, [search]);
   function filterDishes() {
     setMeals(dishes.filter((dishe) => dishe.category === "refeicao"));
     setDrinks(dishes.filter((dishe) => dishe.category === "bebida"));

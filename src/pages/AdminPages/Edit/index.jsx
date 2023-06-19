@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAlert } from "react-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { confirmAlert } from "react-confirm-alert";
-import { api } from "../../../services/api";
+import { api, CancelToken } from "../../../services/api";
 import { FiUpload, FiSearch } from "react-icons/fi";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { Container, Content, Form, Image } from "./styles";
@@ -100,6 +100,7 @@ export function Edit() {
       }
 
       alert.success("Prato editado com sucesso!");
+      navigate(-1);
     } catch (error) {
       if (error.response) {
         alert.error(error.response.data.message);

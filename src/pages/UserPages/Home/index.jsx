@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
-import { api } from "../../../services/api";
+
+import { api, CancelToken } from "../../../services/api";
+
 import { Container, Content } from "./styles";
+
 import { Header } from "../../../components/UserHeader";
 import { Footer } from "../../../components/Footer";
-
 import { Input } from "../../../components/Input";
+import { UserCarrosel } from "../../../components/UserCarrosel";
 
 import { FiSearch } from "react-icons/fi";
 
 import macaronImage from "../../../assets/macaron.png";
-import { UserCarrosel } from "../../../components/UserCarrosel";
-import { Carrosel } from "../../../components/Carrosel";
 
 export function Home() {
   const [dishes, setDishes] = useState([]);
@@ -26,18 +27,32 @@ export function Home() {
   }
 
   useEffect(() => {
+    let cancelToken = CancelToken.source();
+
     async function fetchDishes() {
-      let response = await api.get(`/dishes?name=${search}&ingredients`);
+      let response = await api.get(`/dishes?name=${search}&ingredients`, {
+        cancelToken: cancelToken.token,
+      });
+
       if (response.data.length === 0) {
-        response = await api.get(`/dishes?name&ingredients=${search}`);
+        response = await api.get(`/dishes?name&ingredients=${search}`, {
+          cancelToken: cancelToken.token,
+        });
       }
+
       setDishes(response.data);
     }
+
     fetchDishes();
+
+    return () => {
+      cancelToken.cancel("Request canceled");
+    };
   }, [search]);
 
   useEffect(() => {
     filterDishes();
+    console.log(dishes);
   }, [dishes]);
 
   return (
