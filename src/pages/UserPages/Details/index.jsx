@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { api } from "../../../services/api";
 
 import { Container, Content } from "./styles";
-import { Header } from "../../../components/Header";
+import { Header } from "../../../components/UserHeader";
 import { Footer } from "../../../components/Footer";
 import { Tag } from "../../../components/Tag";
 import { Button } from "../../../components/Button";
@@ -12,8 +12,6 @@ import { Input } from "../../../components/Input";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { TbReceipt } from "react-icons/tb";
 import { FiSearch } from "react-icons/fi";
-
-import disheImg from "../../../assets/dish.png";
 
 export function Details() {
   const [dish, setDish] = useState({});

@@ -48,6 +48,7 @@ export function Home() {
       cancelToken.cancel("Request canceled");
     };
   }, [search]);
+
   function filterDishes() {
     setMeals(dishes.filter((dishe) => dishe.category === "refeicao"));
     setDrinks(dishes.filter((dishe) => dishe.category === "bebida"));
