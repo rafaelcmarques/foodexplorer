@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
 
 import logoDesktop from "../../assets/logoDesktop.png";
@@ -58,7 +58,13 @@ export function Header({ children, isHide = false }) {
           )}
         </button>
 
-        {showMenu ? <h1>Menu</h1> : <img src={logoMobile} alt="FoodExplorer" />}
+        {showMenu ? (
+          <h1>Menu</h1>
+        ) : (
+          <Link to="/">
+            <img src={logoMobile} alt="FoodExplorer" />
+          </Link>
+        )}
 
         {!showMenu ? (
           <div>
@@ -85,10 +91,10 @@ export function Header({ children, isHide = false }) {
     </MobileContainer>
   ) : (
     <DesktopContainer>
-      <img src={logoDesktop} alt="" />
-
+      <Link to="/">
+        <img src={logoDesktop} alt="" />
+      </Link>
       {children}
-
       <div className="wrapper">
         <div className="buttonWrapper">
           <Button icon={TbReceipt} title={`Pedidos(0)`}></Button>
